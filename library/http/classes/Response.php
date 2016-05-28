@@ -81,7 +81,9 @@ class Response extends Message implements ResponseInterface
      */
     public function withStatus($code, $reasonPhrase = '')
     {
-
+        $this->_statusCode = $code;
+        $this->_reasonPhrase = $reasonPhrase;
+        return $this;
     }
 
     /**
