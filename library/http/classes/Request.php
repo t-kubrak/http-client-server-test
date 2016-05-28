@@ -91,7 +91,8 @@ class Request extends Message implements RequestInterface
      */
     public function withRequestTarget($requestTarget)
     {
-
+        $this->_uri = $requestTarget;
+        return $this;
     }
 
     /**
