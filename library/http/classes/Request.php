@@ -135,7 +135,7 @@ class Request extends Message implements RequestInterface
      */
     public function getUri()
     {
-
+        return $this->_uri;
     }
 
     /**
