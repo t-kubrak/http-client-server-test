@@ -28,7 +28,6 @@ use \pillr\library\http\Message         as  Message;
  */
 class Request extends Message implements RequestInterface
 {
-    protected $_protocolVersion;
     protected $_httpMethod;
     protected $_uri;
     protected $_headers;
@@ -44,7 +43,7 @@ class Request extends Message implements RequestInterface
      */
     function __construct($protocolVersion, $httpMethod, $uri, $headers, $messageBody)
     {
-        $this->_protocolVersion = $protocolVersion;
+        $this->protocolVersion = $protocolVersion;
         $this->_httpMethod = $httpMethod;
         $this->_uri = $uri;
         $this->_headers = $headers;

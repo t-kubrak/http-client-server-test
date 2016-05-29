@@ -23,11 +23,13 @@ use \pillr\library\http\Message         as  Message;
  */
 class Response extends Message implements ResponseInterface
 {
-    protected $_protocolVersion;
     protected $_statusCode;
     protected $_reasonPhrase;
-    protected $_headers;
-    protected $_messageBody;
+    protected $_http_status_codes = array(
+        200 => "OK",
+        404 => "Not Found",
+        500 => "Internal Server Error"
+    );
 
     /**
      * Response constructor.
@@ -37,13 +39,13 @@ class Response extends Message implements ResponseInterface
      * @param $headers
      * @param $messageBody
      */
-    function __construct($protocolVersion, $statusCode, $reasonPhrase, $headers, $messageBody)
+    function __construct($protocolVersion, $statusCode, $reasonPhrase = '', $headers, $messageBody)
     {
-        $this->_protocolVersion = $protocolVersion;
+        $this->protocolVersion = $protocolVersion;
         $this->_statusCode = $statusCode;
-        $this->_reasonPhrase = $reasonPhrase;
-        $this->_headers = $headers;
-        $this->_messageBody = $messageBody;
+        $this->_reasonPhrase = ($reasonPhrase == '') ? $this->getReasonPhrase() : $reasonPhrase;
+        $this->headers = $headers;
+        $this->messageBody = $messageBody;
     }
 
     /**
@@ -101,6 +103,11 @@ class Response extends Message implements ResponseInterface
      */
     public function getReasonPhrase()
     {
-
+        foreach($this->_http_status_codes as $code => $phrase){
+            if($this->_statusCode == $code){
+                $this->_reasonPhrase = $phrase;
+            }
+        }
+        return $this->_reasonPhrase;
     }
 }
